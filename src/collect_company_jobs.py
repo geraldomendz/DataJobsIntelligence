@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import pandas as pd
 
 url = "https://qca.gupy.io/"
 
@@ -18,7 +19,7 @@ data = json.loads(next_data.string)
 
 jobs = data["props"]["pageProps"]["jobs"]
 
-import pandas as pd
+
 
 dados = []
 
