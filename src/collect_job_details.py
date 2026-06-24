@@ -5,6 +5,19 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+# =====================================
+# CONFIGURAÇÃO
+# =====================================
+
+EMPRESA = "grupoboticario"
+
+# exemplos:
+# EMPRESA = "qca"
+# EMPRESA = "boticario"
+
+# =====================================
+# FUNÇÃO LIMPEZA HTML
+# =====================================
 
 def clean_html(text):
     return BeautifulSoup(
@@ -16,9 +29,15 @@ def clean_html(text):
 # LER CSV
 # =====================================
 
-df = pd.read_csv("data/raw/qca_jobs.csv")
+df = pd.read_csv(
+    f"data/raw/{EMPRESA}_jobs.csv"
+)
 
 results = []
+
+# =====================================
+# LOOP DAS VAGAS
+# =====================================
 
 for _, row in df.iterrows():
 
@@ -39,13 +58,16 @@ for _, row in df.iterrows():
         ).decode()
 
         url = (
-            f"https://qca.gupy.io/job/"
+            f"https://{EMPRESA}.gupy.io/job/"
             f"{encoded}?jobBoardSource=gupy_portal"
         )
 
         print(f"Coletando {job_id}...")
 
-        response = requests.get(url, timeout=20)
+        response = requests.get(
+            url,
+            timeout=20
+        )
 
         match = re.search(
             r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
@@ -56,7 +78,9 @@ for _, row in df.iterrows():
             print(f"Erro na vaga {job_id}")
             continue
 
-        data = json.loads(match.group(1))
+        data = json.loads(
+            match.group(1)
+        )
 
         job = data["props"]["pageProps"]["job"]
 
@@ -78,13 +102,18 @@ for _, row in df.iterrows():
     except Exception as e:
         print(f"Erro {job_id}: {e}")
 
-
-
+# =====================================
+# SALVAR CSV
+# =====================================
 
 details_df = pd.DataFrame(results)
 
+output_file = (
+    f"data/processed/{EMPRESA}_jobs_details.csv"
+)
+
 details_df.to_csv(
-    "data/processed/qca_jobs_details.csv",
+    output_file,
     index=False,
     encoding="utf-8-sig"
 )
@@ -93,3 +122,4 @@ print("\n======================")
 print("COLETA FINALIZADA")
 print("======================")
 print(f"Vagas coletadas: {len(details_df)}")
+print(f"Arquivo: {output_file}")

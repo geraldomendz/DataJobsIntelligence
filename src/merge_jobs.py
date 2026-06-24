@@ -1,10 +1,30 @@
 import pandas as pd
 
-jobs = pd.read_csv("data/raw/qca_jobs.csv")
+# =====================================
+# CONFIGURAÇÃO
+# =====================================
+
+EMPRESA = "grupoboticario"
+
+# exemplos:
+# EMPRESA = "qca"
+# EMPRESA = "grupoboticario"
+
+# =====================================
+# LEITURA DOS DADOS
+# =====================================
+
+jobs = pd.read_csv(
+    f"data/raw/{EMPRESA}_jobs.csv"
+)
 
 details = pd.read_csv(
-    "data/processed/qca_jobs_details.csv"
+    f"data/processed/{EMPRESA}_jobs_details.csv"
 )
+
+# =====================================
+# MERGE
+# =====================================
 
 merged = jobs.merge(
     details.drop(columns=["titulo"]),
@@ -12,9 +32,27 @@ merged = jobs.merge(
     how="inner"
 )
 
-merged.to_csv(
-    "data/processed/qca_jobs_enriched.csv",
-    index=False
+# =====================================
+# SALVAR
+# =====================================
+
+output_file = (
+    f"data/processed/{EMPRESA}_jobs_enriched.csv"
 )
 
+merged.to_csv(
+    output_file,
+    index=False,
+    encoding="utf-8-sig"
+)
+
+print()
+print("Arquivo criado:")
+print(output_file)
+
+print()
+print("Shape:")
 print(merged.shape)
+
+print()
+print(merged.head())
