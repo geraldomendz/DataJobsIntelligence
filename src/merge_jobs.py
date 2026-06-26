@@ -4,7 +4,7 @@ import pandas as pd
 # CONFIGURAÇÃO
 # =====================================
 
-EMPRESA = "grupoboticario"
+EMPRESA = "qca"
 
 # exemplos:
 # EMPRESA = "qca"

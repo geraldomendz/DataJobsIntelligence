@@ -5,7 +5,7 @@ import pandas as pd
 # ============================
 
 qca = pd.read_csv(
-    "data/processed/job_skills.csv"
+    "data/processed/qca_skills.csv"
 )
 
 boticario = pd.read_csv(

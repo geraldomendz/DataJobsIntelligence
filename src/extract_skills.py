@@ -5,7 +5,7 @@ import re
 # CONFIGURAÇÃO
 # =====================================
 
-EMPRESA = "grupoboticario"
+EMPRESA = "qca"
 
 # =====================================
 # LEITURA

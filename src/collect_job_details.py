@@ -9,11 +9,11 @@ from bs4 import BeautifulSoup
 # CONFIGURAÇÃO
 # =====================================
 
-EMPRESA = "grupoboticario"
+EMPRESA = "qca"
 
 # exemplos:
 # EMPRESA = "qca"
-# EMPRESA = "boticario"
+# EMPRESA = "grupoboticario"
 
 # =====================================
 # FUNÇÃO LIMPEZA HTML
