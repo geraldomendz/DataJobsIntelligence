@@ -9,6 +9,11 @@ connection_string = (
     "&trusted_connection=yes"
 )
 
-engine = create_engine(connection_string)
 
-print("Conexão realizada com sucesso!")
+def get_engine():
+    return create_engine(connection_string)
+
+
+if __name__ == "__main__":
+    engine = get_engine()
+    print("Conexão realizada com sucesso!")
