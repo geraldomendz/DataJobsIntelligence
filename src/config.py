@@ -23,5 +23,16 @@ COMPANIES = [
         "id": 2,
         "name": "grupoboticario",
         "url": "https://grupoboticario.gupy.io/"
+    },
+     {
+        "id": 3,
+        "name": "itau",
+        "url": "https://vemproitau.gupy.io/"
+    },
+    
+    {
+        "id": 4,
+        "name": "raizen",
+        "url": "https://genteraizen.gupy.io/"
     }
 ]

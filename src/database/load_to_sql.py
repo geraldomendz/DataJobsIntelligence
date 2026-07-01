@@ -1,18 +1,16 @@
 import pandas as pd
 from database.database_connection import get_engine
+from sqlalchemy import text
 
 
-company_ids = {
-    "qca": 1,
-    "grupoboticario": 2
-}
 
 
-def run(empresa):
+
+def run(empresa, company_id):
 
     print(f"\nCarregando dados da {empresa} no SQL Server...")
 
-    company_id = company_ids[empresa]
+   
 
     engine = get_engine()
 
@@ -52,6 +50,24 @@ def run(empresa):
             "skill"
         ]
     ]
+
+    with engine.begin() as conn:
+
+        conn.execute(
+         text(
+              "DELETE FROM job_skills WHERE company_id = :company_id"
+         ),
+         {"company_id": company_id}
+    )
+
+        conn.execute(
+         text(
+             "DELETE FROM jobs WHERE company_id = :company_id"
+         ),
+          {"company_id": company_id}
+    )
+
+    
 
     jobs.to_sql(
         "jobs",

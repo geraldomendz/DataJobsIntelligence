@@ -5,7 +5,6 @@ from config import COMPANIES
 
 def run():
 
-    print("\nGerando ranking geral de skills...")
 
     dataframes = []
 

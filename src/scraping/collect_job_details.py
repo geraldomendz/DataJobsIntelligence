@@ -14,13 +14,14 @@ def clean_html(text):
     ).get_text(" ", strip=True)
 
 
-def run(empresa):
+def run(empresa, base_url):
 
     print(f"Coletando detalhes das vagas da {empresa}...")
 
     df = pd.read_csv(
         f"data/raw/{empresa}_jobs.csv"
     )
+    
 
     results = []
 
@@ -42,8 +43,10 @@ def run(empresa):
                 ).encode()
             ).decode()
 
+            base_url = base_url.rstrip("/")
+
             url = (
-                f"https://{empresa}.gupy.io/job/"
+                f"{base_url}/job/"
                 f"{encoded}?jobBoardSource=gupy_portal"
             )
 

@@ -55,6 +55,10 @@ def run(empresa, url):
 
     df = pd.DataFrame(dados)
 
+    if df.empty:
+        print("⚠ Nenhuma vaga encontrada.")
+        return df
+
     output_file = f"data/raw/{empresa}_jobs.csv"
 
     df.to_csv(
