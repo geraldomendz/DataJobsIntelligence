@@ -1,6 +1,7 @@
 import pandas as pd
 from database.database_connection import get_engine
 from sqlalchemy import text
+from utils.logger import Logger
 
 
 
@@ -8,7 +9,7 @@ from sqlalchemy import text
 
 def run(empresa, company_id):
 
-    print(f"\nCarregando dados da {empresa} no SQL Server...")
+    Logger.info(f"Carregando dados da {empresa} no SQL Server...")
 
    
 
@@ -83,9 +84,9 @@ def run(empresa, company_id):
         index=False
     )
 
-    print(f"✔ {len(jobs)} vagas carregadas.")
-    print(f"✔ {len(skills)} skills carregadas.")
-    print("✔ Dados enviados com sucesso!")
+    Logger.success(f"{len(jobs)} vagas carregadas.")
+    Logger.success(f"{len(skills)} skills carregadas.")
+    Logger.success("Dados enviados com sucesso!")
 
     return jobs, skills
 

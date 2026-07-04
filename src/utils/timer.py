@@ -10,4 +10,17 @@ class Timer:
         return time.time() - self.start
 
     def __str__(self):
-        return f"{self.elapsed():.2f}s"
+
+        seconds = int(self.elapsed())
+
+        horas = seconds // 3600
+        minutos = (seconds % 3600) // 60
+        segundos = seconds % 60
+
+        if horas > 0:
+            return f"{horas}h {minutos}min {segundos}s"
+
+        if minutos > 0:
+            return f"{minutos}min {segundos}s"
+
+        return f"{segundos}s"

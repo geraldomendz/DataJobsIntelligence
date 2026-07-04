@@ -34,5 +34,36 @@ COMPANIES = [
         "id": 4,
         "name": "raizen",
         "url": "https://genteraizen.gupy.io/"
+    },
+    {
+        "id": 5,
+        "name": "vivo",
+        "url": "https://vivo.gupy.io/"
+    },
+     {
+        "id": 6,
+        "name": "ambev",
+        "url": "https://ambev.gupy.io/"
+    },
+     {
+        "id": 7,
+        "name": "localiza",
+        "url": "https://localiza.gupy.io/"
+    },
+     {
+        "id": 8,
+        "name": "porto",
+        "url": "https://porto.gupy.io/"
+    },
+     {
+        "id": 9,
+        "name": "minsait",
+        "url": "https://minsait.gupy.io/"
+    },
+     {
+        "id": 10,
+        "name": "globalhitss",
+        "url": "https://globalhitss.gupy.io/"
     }
+
 ]

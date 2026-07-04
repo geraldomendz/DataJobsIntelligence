@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from utils.logger import Logger
 
 SERVER = "localhost"
 DATABASE = "DataJobsIntelligence"
@@ -16,4 +17,4 @@ def get_engine():
 
 if __name__ == "__main__":
     engine = get_engine()
-    print("Conexão realizada com sucesso!")
+    Logger.success("Conexão realizada com sucesso!")

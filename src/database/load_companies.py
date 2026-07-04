@@ -2,10 +2,12 @@ import pandas as pd
 
 from database.database_connection import get_engine
 
+from utils.logger import Logger
+
 
 def run(companies):
 
-    print("\nSincronizando empresas...")
+    Logger.info("\nSincronizando empresas...")
 
     engine = get_engine()
 
@@ -27,7 +29,7 @@ def run(companies):
     ]
 
     if len(df) == 0:
-        print("✔ Empresas já cadastradas.")
+        Logger.success("Empresas já cadastradas.")
         return
 
     df.to_sql(
@@ -37,4 +39,4 @@ def run(companies):
         index=False
     )
 
-    print(f"✔ {len(df)} empresas adicionadas.")
+    Logger.success(f"{len(df)} empresas adicionadas.")

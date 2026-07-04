@@ -1,10 +1,12 @@
+import os
+
 import pandas as pd
 
 from config import COMPANIES
+from utils.logger import Logger
 
 
 def run():
-
 
     dataframes = []
 
@@ -12,13 +14,22 @@ def run():
 
         empresa = company["name"]
 
-        arquivo = (
-            f"data/processed/{empresa}_skills.csv"
-        )
+        arquivo = f"data/processed/{empresa}_skills.csv"
+
+        if not os.path.exists(arquivo):
+            Logger.warning(f"Arquivo não encontrado: {arquivo}")
+            continue
 
         df = pd.read_csv(arquivo)
 
+        if df.empty:
+            continue
+
         dataframes.append(df)
+
+    if not dataframes:
+        Logger.warning("Nenhuma skill encontrada.")
+        return pd.DataFrame()
 
     skills = pd.concat(
         dataframes,
@@ -36,9 +47,7 @@ def run():
         "quantidade"
     ]
 
-    output_file = (
-        "data/processed/skill_ranking.csv"
-    )
+    output_file = "data/processed/skill_ranking.csv"
 
     ranking.to_csv(
         output_file,
@@ -46,8 +55,8 @@ def run():
         encoding="utf-8-sig"
     )
 
-    print(f"✔ Ranking gerado com {len(ranking)} skills.")
-    print(f"✔ Arquivo salvo em {output_file}")
+    Logger.success(f"Ranking gerado com {len(ranking)} skills.")
+    Logger.info(f"Arquivo salvo em {output_file}")
 
     return ranking
 

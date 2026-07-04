@@ -1,5 +1,10 @@
-import pandas as pd
 import re
+
+import pandas as pd
+
+from utils.logger import Logger
+
+from tqdm import tqdm
 
 
 skills_map = {
@@ -84,7 +89,7 @@ skills_map = {
 
 def run(empresa):
 
-    print(f"\nExtraindo skills da {empresa}...")
+    Logger.info(f"Extraindo skills da {empresa}...")
 
     df = pd.read_csv(
         f"data/processed/{empresa}_jobs_enriched.csv"
@@ -92,7 +97,13 @@ def run(empresa):
 
     results = []
 
-    for _, row in df.iterrows():
+
+    for _, row in tqdm(
+        df.iterrows(),
+        total=len(df),
+        desc=f"{empresa.upper()}",
+        unit="vaga"
+    ):
 
         texto = " ".join([
             str(row.get("descricao", "")),
@@ -131,8 +142,8 @@ def run(empresa):
         encoding="utf-8-sig"
     )
 
-    print(f"✔ {len(skills_df)} skills encontradas.")
-    print(f"✔ Arquivo salvo em {output_file}")
+    Logger.success(f"{len(skills_df)} skills encontradas.")
+    Logger.info(f"Arquivo salvo em {output_file}")
 
     return skills_df
 

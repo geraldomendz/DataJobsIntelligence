@@ -1,9 +1,11 @@
 import pandas as pd
 
+from utils.logger import Logger
+
 
 def run(empresa):
 
-    print(f"\nMesclando dados da {empresa}...")
+    Logger.info(f"Mesclando dados da {empresa}...")
 
     jobs = pd.read_csv(
         f"data/raw/{empresa}_jobs.csv"
@@ -29,8 +31,8 @@ def run(empresa):
         encoding="utf-8-sig"
     )
 
-    print(f"✔ Arquivo criado: {output_file}")
-    print(f"✔ Total de vagas: {len(merged)}")
+    Logger.success(f"{len(merged)} vagas mescladas.")
+    Logger.info(f"Arquivo salvo em {output_file}")
 
     return merged
 

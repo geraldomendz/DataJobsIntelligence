@@ -5,6 +5,8 @@ import re
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
+from utils.logger import Logger
 
 
 def clean_html(text):
@@ -16,16 +18,25 @@ def clean_html(text):
 
 def run(empresa, base_url):
 
-    print(f"Coletando detalhes das vagas da {empresa}...")
 
     df = pd.read_csv(
         f"data/raw/{empresa}_jobs.csv"
     )
     
+    Logger.info(f"Coletando detalhes das vagas da {empresa}...")
+    Logger.info(f"{len(df)} vagas encontradas.")
+    
 
     results = []
 
-    for _, row in df.iterrows():
+    erros = 0
+
+    for _, row in tqdm(
+        df.iterrows(),
+        total=len(df),
+        desc=f"{empresa.upper()}",
+        unit="vaga"
+    ):
 
         job_id = row["id"]
 
@@ -50,7 +61,7 @@ def run(empresa, base_url):
                 f"{encoded}?jobBoardSource=gupy_portal"
             )
 
-            print(f"Coletando vaga {job_id}...")
+            
 
             response = requests.get(
                 url,
@@ -65,7 +76,7 @@ def run(empresa, base_url):
             )
 
             if not match:
-                print(f"⚠ Não foi possível ler a vaga {job_id}")
+                erros += 1
                 continue
 
             data = json.loads(match.group(1))
@@ -81,8 +92,9 @@ def run(empresa, base_url):
                 "prerequisitos": clean_html(job.get("prerequisites"))
             })
 
-        except Exception as e:
-            print(f"Erro na vaga {job_id}: {e}")
+        except Exception:
+            erros += 1
+            Logger.error(f"Vaga {job_id}: {e}")
 
     details_df = pd.DataFrame(results)
 
@@ -95,13 +107,14 @@ def run(empresa, base_url):
         index=False,
         encoding="utf-8-sig"
     )
+    
+    Logger.success(f"{len(details_df)} detalhes coletados.")
 
-    print("\n======================")
-    print("COLETA FINALIZADA")
-    print("======================")
-    print(f"Empresa: {empresa}")
-    print(f"Vagas coletadas: {len(details_df)}")
-    print(f"Arquivo salvo: {output_file}")
+    if erros > 0:
+        Logger.warning(f"{erros} vagas não puderam ser processadas.")
+
+    Logger.info(f"Arquivo salvo em {output_file}")
+    
 
     return details_df
 

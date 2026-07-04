@@ -4,21 +4,30 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from utils.logger import Logger
+
 
 def run(empresa, url):
 
-    print(f"\nColetando vagas da {empresa}...")
+    Logger.info(f"Coletando vagas da {empresa}...")
 
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
 
-    response = requests.get(
-        url,
-        headers=headers
-    )
+    try:
 
-    response.raise_for_status()
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=20
+        )
+
+        response.raise_for_status()
+
+    except Exception as e:
+        Logger.error(f"Erro ao acessar {empresa}: {e}")
+        return pd.DataFrame()
 
     soup = BeautifulSoup(
         response.text,
@@ -29,6 +38,10 @@ def run(empresa, url):
         "script",
         {"id": "__NEXT_DATA__"}
     )
+
+    if next_data is None:
+        Logger.error("Não foi possível localizar os dados da página.")
+        return pd.DataFrame()
 
     data = json.loads(next_data.string)
 
@@ -56,7 +69,7 @@ def run(empresa, url):
     df = pd.DataFrame(dados)
 
     if df.empty:
-        print("⚠ Nenhuma vaga encontrada.")
+        Logger.warning("Nenhuma vaga encontrada.")
         return df
 
     output_file = f"data/raw/{empresa}_jobs.csv"
@@ -67,8 +80,8 @@ def run(empresa, url):
         encoding="utf-8-sig"
     )
 
-    print(f"✔ {len(df)} vagas coletadas.")
-    print(f"✔ Arquivo salvo em {output_file}")
+    Logger.success(f"{len(df)} vagas coletadas.")
+    Logger.info(f"Arquivo salvo em {output_file}")
 
     return df
 
@@ -76,6 +89,6 @@ def run(empresa, url):
 if __name__ == "__main__":
 
     run(
-    empresa="grupoboticario",
-    url="https://grupoboticario.gupy.io/"
-)
+        empresa="grupoboticario",
+        url="https://grupoboticario.gupy.io/"
+    )
