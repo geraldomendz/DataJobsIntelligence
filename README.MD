@@ -12,8 +12,6 @@ Pipeline de Engenharia de Dados desenvolvido em Python para automatizar a coleta
 
 https://app.powerbi.com/view?r=eyJrIjoiZDA2OWRjNjYtM2ZjOC00MmVlLWI0ZWUtNWMwOTg5NWMxYTExIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9
 
-## Preview do Dashboard
-
 
 ## Preview do Dashboard
 
