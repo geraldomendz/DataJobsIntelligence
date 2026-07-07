@@ -15,15 +15,15 @@ https://app.powerbi.com/view?r=eyJrIjoiZDA2OWRjNjYtM2ZjOC00MmVlLWI0ZWUtNWMwOTg5N
 ## Preview do Dashboard
 
 
-```
-## Página Principal
+## Preview do Dashboard
+
+### Página Principal
 
 ![Dashboard Principal](docs/images/dashboard_home.png)
 
-## Página de Insights
+### Página de Insights
 
 ![Dashboard Insights](docs/images/dashboard_insights.png)
-```
 
 ---
 
