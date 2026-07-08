@@ -250,9 +250,11 @@ DataJobsIntelligence
 │   ├── utils/                # Logger, Timer e utilitários
 │   └── config.py             # Configuração das empresas monitoradas
 │
+├── .env.example              # Exemplo das variáveis de ambiente
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+
 ```
 ---
 

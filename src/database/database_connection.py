@@ -1,8 +1,13 @@
 from sqlalchemy import create_engine
 from utils.logger import Logger
+from dotenv import load_dotenv
+import os
 
-SERVER = "localhost"
-DATABASE = "DataJobsIntelligence"
+load_dotenv()
+
+SERVER = os.getenv("DB_SERVER")
+DATABASE = os.getenv("DB_DATABASE")
+DRIVER = os.getenv("DB_DRIVER")
 
 connection_string = (
     f"mssql+pyodbc://@{SERVER}/{DATABASE}"
