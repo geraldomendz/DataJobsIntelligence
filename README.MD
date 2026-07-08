@@ -4,24 +4,6 @@
 
 Pipeline de Engenharia de Dados desenvolvido em Python para automatizar a coleta, tratamento e análise de vagas publicadas na plataforma **Gupy**. O projeto utiliza **Web Scraping**, um pipeline **ETL** completo, **SQL Server** para persistência dos dados e **Power BI** para geração de dashboards analíticos.
 
----
-
-# Dashboard
-
-**Dashboard Online**
-
-https://app.powerbi.com/view?r=eyJrIjoiZDA2OWRjNjYtM2ZjOC00MmVlLWI0ZWUtNWMwOTg5NWMxYTExIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9
-
-
-## Preview do Dashboard
-
-### Página Principal
-
-![Dashboard Principal](docs/images/dashboard_home.png)
-
-### Página de Insights
-
-![Dashboard Insights](docs/images/dashboard_insights.png)
 
 ---
 
@@ -272,6 +254,24 @@ DataJobsIntelligence
 ├── README.md
 └── requirements.txt
 ```
+---
+
+# Dashboard
+
+**Dashboard Online**
+
+https://app.powerbi.com/view?r=eyJrIjoiZDA2OWRjNjYtM2ZjOC00MmVlLWI0ZWUtNWMwOTg5NWMxYTExIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9
+
+
+## Preview do Dashboard
+
+### Página Principal
+
+![Dashboard Principal](docs/images/dashboard_home.png)
+
+### Página de Insights
+
+![Dashboard Insights](docs/images/dashboard_insights.png)
 
 
 ---
